@@ -1,14 +1,14 @@
-/*Definirati strukturu osoba (ime, prezime, godina roðenja) i napisati program koji:
-	- dinamièki dodaje novi element na poèetak liste,
+/*Definirati strukturu osoba (ime, prezime, godina roÃ°enja) i napisati program koji:
+	- dinamiÃ¨ki dodaje novi element na poÃ¨etak liste,
 	- ispisuje listu,
-	- dinamièki dodaje novi element na kraj liste,
+	- dinamiÃ¨ki dodaje novi element na kraj liste,
 	- pronalazi element u listi (po prezimenu),
-	- briše odreðeni element iz liste,
-	- dinamièki dodaje novi element iza odreðenog elementa,
-	- dinamièki dodaje novi element ispred odreðenog elementa,
+	- briÅ¡e odreÃ°eni element iz liste,
+	- dinamiÃ¨ki dodaje novi element iza odreÃ°enog elementa,
+	- dinamiÃ¨ki dodaje novi element ispred odreÃ°enog elementa,
 	- sortira listu po prezimenima osoba,
 	- upisuje listu u datoteku,
-	- èita listu iz datoteke.
+	- Ã¨ita listu iz datoteke.
 U zadatku se ne smiju koristiti globalne varijable.*/
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -25,16 +25,17 @@ typedef struct osoba {
 	Position Next;
 }osoba;
 
-void Insert(Position);
-void Print(Position);
+int Insert(Position);
+int Print(Position);
 Position FindLast(Position);
 Position Find(Position);
 Position FindPrev(Position);
-void Delete(Position);
-void Sort(Position);
-void ReadFromFile(Position);
-void WriteToFile(Position);
-
+int Delete(Position);
+int Sort(Position);
+int ReadFromFile(Position);
+int WriteToFile(Position);
+int Menu();
+int Izbor(int);
 
 int main()
 {
@@ -42,24 +43,33 @@ int main()
 	char izbor = 0;
 
 	head.Next = NULL;
-	while (izbor != 'K' && izbor != 'k')
-	{
-		printf("\nUnesi:");
-		printf("\n\t0 -> unos elementa na pocetak");
-		printf("\n\t1 -> ispis niza");
-		printf("\n\t2 -> unos elementa na kraj");
-		printf("\n\t3 -> trazenje elementa u listi po prezimenu");
-		printf("\n\t4 -> brisanje");
-		printf("\n\t5 -> dodavanje iza elementa");
-		printf("\n\t6 -> dodavanje ispred elementa");
-		printf("\n\t7 -> sortiranje liste po prezimenu");
-		printf("\n\t8 -> citanje iz datoteke");
-		printf("\n\t9 -> upisivanje liste u datoteku");
-		printf("\n\tk -> kraj\n\n\t");
-
+	while (izbor != 'K' && izbor != 'k'){
+		Menu();
 		scanf(" %c", &izbor);
+		Izbor(izbor);
 
-		switch (izbor)
+	
+	return 0;
+}
+
+int Menu(){
+	printf("\nUnesi:");
+	printf("\n\t0 -> unos elementa na pocetak");
+	printf("\n\t1 -> ispis niza");
+	printf("\n\t2 -> unos elementa na kraj");
+	printf("\n\t3 -> trazenje elementa u listi po prezimenu");
+	printf("\n\t4 -> brisanje");
+	printf("\n\t5 -> dodavanje iza elementa");
+	printf("\n\t6 -> dodavanje ispred elementa");
+	printf("\n\t7 -> sortiranje liste po prezimenu");
+	printf("\n\t8 -> citanje iz datoteke");
+	printf("\n\t9 -> upisivanje liste u datoteku");
+	printf("\n\tk -> kraj\n\n\t");
+	return 0;
+}
+	
+int izbor(int izbor){
+	switch (izbor)
 		{
 		case '0':
 			Insert(&head);
@@ -85,6 +95,7 @@ int main()
 			q = Find(head.Next);
 			if (NULL == q)
 				printf("\n Osoba ne postoji u listi!");
+				return -1;
 			else
 				Insert(q);
 			break;
@@ -92,6 +103,7 @@ int main()
 			q = FindPrev(&head);
 			if (NULL == q)
 				printf("\n Osoba ne postoji u listi!");
+				return -2;
 			else
 				Insert(q);
 			break;
@@ -107,15 +119,16 @@ int main()
 		case 'k':
 		case 'K':
 			printf("\nKraj programa!!!\n");
+			return 0;
 			break;
 		default:
 			printf("\nKrivi unos!!!\n");
+			return -1;
 		}
 	}
-	return 0;
 }
 
-void Insert(Position P)
+int Insert(Position P)
 {
 	Position temp;
 
@@ -125,12 +138,14 @@ void Insert(Position P)
 
 	temp->Next = P->Next;
 	P->Next = temp;
+	return 0;
 }
 
-void Print(Position P)
+int Print(Position P)
 {
 	if (NULL == P)
 		printf("\nLista je prazna!!\n");
+		return -1;
 	else
 	{
 		printf("\nU listi se nalaze:");
@@ -139,6 +154,7 @@ void Print(Position P)
 			printf("\n\t %s %s %d", P->name, P->surname, P->bY);
 			P = P->Next;
 		}
+		return 0;
 	}
 
 
@@ -188,7 +204,7 @@ Position FindPrev(Position P)
 	return P;
 }
 
-void Delete(Position P)
+int Delete(Position P)
 {
 	Position prev;
 
@@ -200,12 +216,14 @@ void Delete(Position P)
 		prev->Next = P->Next;
 		printf("\n Osoba %s %s %d je obrisana!", P->name, P->surname, P->bY);
 		free(P);
+		return 0;
 	}
 	else
 		printf("\n Osoba ne postoji u listi!");
+		return 1;
 }
 
-void Sort(Position P)
+int  Sort(Position P)
 {
 	Position i, j, prev_j, temp, end;
 
@@ -234,10 +252,11 @@ void Sort(Position P)
 		}
 		end = j;
 	}
+	return 0;
 
 }
 
-void ReadFromFile(Position P)
+int ReadFromFile(Position P)
 {
 	// ova funkcija dodaje elemente iz datoteke nakon pokazivaca na osobu koji posaljemo
 
@@ -252,6 +271,7 @@ void ReadFromFile(Position P)
 
 	if (NULL == dat)
 		printf("\n Ne postoji datoteke s tim imenom");
+		return -1;
 	else
 	{
 		while (feof(dat) == 0)
@@ -266,10 +286,11 @@ void ReadFromFile(Position P)
 		}
 
 		fclose(dat);
+		return 0;
 	}
 }
 
-void WriteToFile(Position P)
+int WriteToFile(Position P)
 {
 	// ova funkcija dodaje elemente iz datoteke nakon pokazivaca na osobu koji posaljemo
 
@@ -292,5 +313,6 @@ void WriteToFile(Position P)
 		}
 
 		fclose(dat);
+		return 0;
 	}
 }
