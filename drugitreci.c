@@ -47,8 +47,7 @@ int main()
 		Menu();
 		scanf(" %c", &izbor);
 		Izbor(izbor);
-
-	
+	}	
 	return 0;
 }
 
