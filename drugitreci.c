@@ -257,7 +257,6 @@ int  Sort(Position P)
 
 int ReadFromFile(Position P)
 {
-	// ova funkcija dodaje elemente iz datoteke nakon pokazivaca na osobu koji posaljemo
 
 	FILE *dat;
 	char imeDat[10];
@@ -291,8 +290,6 @@ int ReadFromFile(Position P)
 
 int WriteToFile(Position P)
 {
-	// ova funkcija dodaje elemente iz datoteke nakon pokazivaca na osobu koji posaljemo
-
 	FILE *dat;
 	char imeDat[10];
 
