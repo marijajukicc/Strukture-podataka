@@ -25,6 +25,8 @@ int unija(Pozicija, Pozicija, Pozicija);
 int ispis(Pozicija);
 int unos_na_pocetak(Pozicija,Pozicija);
 int unos_na_kraj(Pozicija,Pozicija);
+int provjera_filea(FILE*);
+
 int main() {
 	cvor p, q,rez,presjek;
 	p.next = NULL;
@@ -58,6 +60,7 @@ int main() {
 int sortirani_unos(Pozicija p) {
 	char ime[200];
 	FILE *fp;
+	int f = 0;
 	Pozicija novi_el, current;
 
 	printf("\nUnesite ime datoteke za citanje el skupa: ");
@@ -68,7 +71,13 @@ int sortirani_unos(Pozicija p) {
 		printf("\nGreska!Datoteka %s nije otvorena.", ime);
 		return -1;
 	}
-	else {
+
+	if ((f = provjera_filea(fp)) == -1)
+		return -2;
+
+	rewind(fp);
+
+	if(fp !=NULL) {
 		while (!feof(fp)) {
 
 			novi_el = alokacija();
@@ -93,6 +102,20 @@ int sortirani_unos(Pozicija p) {
 	fclose(fp);
 	return 1;
 
+}
+
+int provjera_filea(FILE *fp) {
+	int size = 0;
+	if (NULL != fp) {
+		fseek(fp, 0, SEEK_END);
+		size = ftell(fp);
+
+		if (0 == size) {
+			printf("Datoteka je prazna\n");
+			return -1;
+		}
+	}
+	return 0;
 }
 
 int ispis(Pozicija P) {
