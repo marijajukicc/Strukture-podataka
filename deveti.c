@@ -1,5 +1,5 @@
-/*9. Napisati program koji omoguæava rad s binarnim stablom pretraživanja. Treba
-omoguæiti unošenje novog elementa u stablo, ispis elemenata, brisanje i pronalaženje
+/*9. Napisati program koji omoguÃ¦ava rad s binarnim stablom pretraÅ¾ivanja. Treba
+omoguÃ¦iti unoÅ¡enje novog elementa u stablo, ispis elemenata, brisanje i pronalaÅ¾enje
 nekog elementa.
 */
 
@@ -140,7 +140,6 @@ Branch delete_branch(int el, Branch b) {
 	else {
 		if (b->left != NULL && b->right != NULL) {
 			temp = find_min(b->right);
-			printf("\nNajmanji je %d\n", temp->el);
 			b->el = temp->el;
 			b->right = delete_branch(b->el, b->right);
 		}
