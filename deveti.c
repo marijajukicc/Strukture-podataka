@@ -51,7 +51,7 @@ int main() {
 	scanf(" %d", &find);
 	Branch found = search_tree(find, root);
 	if (found != NULL) {
-		printf("We found your tree %d", found->el);
+		printf("We found your element %d in tree", found->el);
 	}
 	else printf("We couldn't find the tree you are looking for\n");
 	return 0;
