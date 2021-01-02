@@ -73,7 +73,6 @@ Branch postfix_stack(char* temp, int size, Branch root, Position head) {
 	int el = 0, fja = 0, current = 0, brojac = 0;
 	char ch = 0;
 	do {
-		printf("Uzimamo prvi s reda :%s\n", temp);
 		fja = sscanf(temp, "%d %n", &el, &current);
 		if (fja == 0) {
 			fja = sscanf(temp, "%c %n", &ch, &current);
