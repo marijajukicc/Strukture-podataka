@@ -39,6 +39,10 @@ int main() {
 	printf("Enter the name of the file where postfix is(include .txt): ");
 	scanf("%s", fileName);
 	root = postfix_file(fileName, root, head);
+	if(root==NULL){
+		printf("Error in making the tree\n");
+		return -1;
+	}
 	printf("Enter the name of the file where you will save infix(include .txt): ");
 	scanf("%s", fileName);
 	write_in_file(fileName, root);
@@ -84,7 +88,10 @@ Branch postfix_stack(char* temp, int size, Branch root, Position head) {
 			}
 		}
 		else if (fja != 0 && fja != -1)
-			push_no(head, el);
+			if(push_no(head, el)){
+				printf("Number couldn't be planted in the tree\n");
+				return NULL;
+			}
 		temp += current;
 		brojac += current;
 	} while (brojac < (size));
@@ -103,7 +110,9 @@ int insert_branch(Position head, Branch root) {
 
 int push_no(Position p, int el) {
 	char br = (char)el + '0';
-	push(p, br);
+	if(push(p, br)){
+		return 1;
+	}
 	return 0;
 }
 
@@ -112,7 +121,7 @@ int push(Position p, char ch) {
 	Position q = Allocation(ch);
 	if (q == NULL) {
 		printf("Allocation failed\n");
-		return -1;
+		return 1;
 	}
 	q->next = p->next;
 	p->next = q;
@@ -138,6 +147,8 @@ Position Allocation(char el) {
 	}
 	new->next = NULL;
 	new->treePosition = TreeAllocation(el);
+	if (new->treePosition==NULL)
+		return NULL;
 	return new;
 }
 
