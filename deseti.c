@@ -183,7 +183,7 @@ int infix_file(FILE* fp, Branch root) {
 }
 int empty_tree(Branch root) {
 	if (root == NULL)
-		return -1;
+		return 0;
 	empty_tree(root->left);
 	empty_tree(root->right);
 	free(root);
