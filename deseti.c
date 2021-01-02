@@ -1,5 +1,5 @@
-/*10. Napisati program koji iz datoteke èita postfiks izraz i zatim stvara stablo proraèuna. Iz
-gotovog stabla proraèuna upisati u datoteku infiks izraz.*/
+/*10. Napisati program koji iz datoteke Ã¨ita postfiks izraz i zatim stvara stablo proraÃ¨una. Iz
+gotovog stabla proraÃ¨una upisati u datoteku infiks izraz.*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,18 +78,14 @@ Branch postfix_stack(char* temp, int size, Branch root, Position head) {
 		if (fja == 0) {
 			fja = sscanf(temp, "%c %n", &ch, &current);
 			if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
-				printf("Prepoznao %c\n", ch);
 				root = TreeAllocation(ch);
 				root->right = pop(head);
 				root->left = pop(head);
 				insert_branch(head, root);
 			}
 		}
-		else if (fja != 0 && fja != -1) {
+		else if (fja != 0 && fja != -1)
 			push_no(head, el);
-			printf("\nDodajemo el %d\n", el);
-
-		}
 		temp += current;
 		brojac += current;
 	} while (brojac < (size));
