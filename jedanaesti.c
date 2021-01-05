@@ -1,8 +1,8 @@
-/*11. Napisati kod koji za zadane podatke studenata (matièni broj, ime i prezime) pravi hash tablicu sa zasebnim redovima.
-Tablica ima 11 mjesta, a funkcija za preslikavanje kljuè raèuna da se zbraja ASCII vrijednost prvih pet slova prezimena i zatim raèuna
-ostatak cjelobrojnog dijeljenja te vrijednosti s velièinom tablice. Studenti s istim kljuèem se pohranjuju u vezanu listu sortiranu po prezimenima i imenima.
-Kada se tablica izgradi treba ispisati cijelu tablicu (naglasiti na kojem kljuèu se nalaze koji podaci) te ponuditi moguænost da se za odreðenog studenta
-(prezime i ime) ispiše njegov matièni broj*/
+/*11. Napisati kod koji za zadane podatke studenata (matiÃ¨ni broj, ime i prezime) pravi hash tablicu sa zasebnim redovima.
+Tablica ima 11 mjesta, a funkcija za preslikavanje kljuÃ¨ raÃ¨una da se zbraja ASCII vrijednost prvih pet slova prezimena i zatim raÃ¨una
+ostatak cjelobrojnog dijeljenja te vrijednosti s veliÃ¨inom tablice. Studenti s istim kljuÃ¨em se pohranjuju u vezanu listu sortiranu po prezimenima i imenima.
+Kada se tablica izgradi treba ispisati cijelu tablicu (naglasiti na kojem kljuÃ¨u se nalaze koji podaci) te ponuditi moguÃ¦nost da se za odreÃ°enog studenta
+(prezime i ime) ispiÅ¡e njegov matiÃ¨ni broj*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,7 +67,7 @@ HashPointer createHashTable() {
 
 int studentsFromFile(HashPointer table) {
 	FILE* fp;
-	int key = 0, mbg = 0;
+	int key = 0, id = 0;
 	char name[MAX], surname[MAX];
 
 	fp = fopen("studenti.txt", "r");
@@ -76,9 +76,9 @@ int studentsFromFile(HashPointer table) {
 		return -1;
 	}
 	while (!feof(fp)) {
-		fscanf(fp, "%d %s %s", &mbg, name, surname);
+		fscanf(fp, "%d %s %s", &id, name, surname);
 		key = createKey(surname);
-		if (insertStudent(mbg, name, surname,key, table))
+		if (insertStudent(id, name, surname,key, table))
 			printf("Couldn't put student in the table\n");
 	}
 	fclose(fp);
@@ -94,7 +94,7 @@ int createKey(char* surname) {
 	return sum % SIZE;
 }
 
-int insertStudent(int mbr, char* name, char* surname,int key, HashPointer table) {
+int insertStudent(int id, char* name, char* surname,int key, HashPointer table) {
 	Position current = table->members[key];
 	Position newEl = (Position)malloc(sizeof(student));
 
@@ -102,7 +102,7 @@ int insertStudent(int mbr, char* name, char* surname,int key, HashPointer table)
 		perror("Error in allocating newEl member");
 		return 1;
 	}
-	newEl->id_no = mbr;
+	newEl->id_no = id;
 	strcpy(newEl->name, name);
 	strcpy(newEl->surname, surname);
 
