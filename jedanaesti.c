@@ -133,7 +133,7 @@ int printTheStudent(HashPointer table) {
 	char name[MAX], surname[MAX];
 	int found = 0;
 
-	printf("\nPlease,enter name and surname of person you are checking id number: ");
+	printf("\nPlease,enter name and surname of the person you are checking id number: ");
 	scanf("%s %s", name, surname);
 	Position isFound = table->members[createKey(surname)];
 	if (isFound!=NULL) {
